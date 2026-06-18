@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm -f src/App.css src/assets/react.svg src/assets/vite.svg src/assets/hero.png)",
+      "Bash(ls src/assets)",
+      "Bash(npm run *)",
+      "Bash(npm -v)",
+      "Bash(npx vite *)",
+      "Bash(node node_modules/vite/bin/vite.js --port 5173)",
+      "Read(//tmp/**)",
+      "Bash(mv \"public/verity.png\" \"public/projects/verity-news.png\")",
+      "Bash(mv \"public/quotematic.png\" \"public/projects/quotematic-web.png\")",
+      "Bash(mv \"public/plangune.png\" \"public/projects/plangune.png\")",
+      "Bash(mv \"public/nutricoach.png\" \"public/projects/nutricoach.png\")",
+      "Bash(mv \"public/JobIT.png\" \"public/projects/jobit-platform.png\")",
+      "PowerShell(npm run lint)",
+      "PowerShell(npm run build)"
+    ]
+  }
+}
