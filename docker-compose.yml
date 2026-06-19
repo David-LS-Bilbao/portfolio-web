@@ -1,0 +1,14 @@
+services:
+  portfolio-web:
+    build: .
+    container_name: portfolio-web
+    restart: unless-stopped
+    # No se publican puertos al host: NPM accede por la red Docker.
+    expose:
+      - "80"
+    networks:
+      - verity_network
+
+networks:
+  verity_network:
+    external: true
