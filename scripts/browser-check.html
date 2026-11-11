@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Portfolio regression checks</title>
+    <style>
+      body { font: 14px system-ui; padding: 24px; background: #f4f6f8; color: #131e30; }
+      pre { white-space: pre-wrap; line-height: 1.8; }
+      iframe { display: block; height: 640px; border: 0; background: white; }
+      #fallback img { width: 80px; height: auto; }
+    </style>
+  </head>
+  <body>
+    <h1>Portfolio: mobile layout and images</h1>
+    <pre id="results" role="status">Running checks…</pre>
+    <div id="fallback"></div>
+    <iframe id="preview" title="Portfolio under test"></iframe>
+    <script type="module" src="/scripts/browser-check.tsx"></script>
+  </body>
+</html>

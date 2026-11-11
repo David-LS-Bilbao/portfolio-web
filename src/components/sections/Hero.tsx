@@ -1,5 +1,6 @@
 import { profile } from '../../data/profile'
 import { Button } from '../ui/Button'
+import { OptimizedImage } from '../ui/OptimizedImage'
 
 export function Hero() {
   return (
@@ -21,9 +22,9 @@ export function Hero() {
         </div>
         <div className="portrait-panel">
           <div className="portrait-frame">
-            <img src={profile.photoPath} width="809" height="1090" fetchPriority="high" alt={profile.name} />
-            <div className="portrait-caption"><span>DESARROLLADOR · BILBAO</span><strong>Visión de negocio.<br />Mentalidad de producto.</strong></div>
+            <OptimizedImage src={profile.photoPath} webpSrc="/images/david.webp" width="809" height="1090" fetchPriority="high" alt={profile.name} />
           </div>
+          <div className="portrait-caption"><span>DESARROLLADOR · BILBAO</span><strong>Visión de negocio.<br />Mentalidad de producto.</strong></div>
           <div className="availability"><span aria-hidden="true" />Disponible para nuevos retos</div>
         </div>
       </div>

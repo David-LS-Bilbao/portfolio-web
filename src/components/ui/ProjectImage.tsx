@@ -1,14 +1,15 @@
+import { OptimizedImage } from './OptimizedImage'
+
 interface ProjectImageProps {
   src: string
   alt: string
 }
 
-// Keep the original image as the single source. A failed picture/source request
-// previously replaced the image permanently, including after a hot update.
 export function ProjectImage({ src, alt }: ProjectImageProps) {
   return (
-    <img
+    <OptimizedImage
       src={src}
+      webpSrc={src.replace('/projects/', '/images/').replace(/\.png$/, '.webp')}
       alt={alt}
       loading="lazy"
       decoding="async"
