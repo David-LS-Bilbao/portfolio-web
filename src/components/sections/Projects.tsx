@@ -110,7 +110,7 @@ function ProjectCard({ project, delay }: { project: Project; delay: number }) {
 }
 
 export function Projects() {
-  const deployed = projects.filter((project) => project.featured)
+  const featured = projects.filter((project) => project.featured)
   const others = projects.filter((project) => !project.featured)
 
   return (
@@ -119,15 +119,15 @@ export function Projects() {
         <SectionHeading
           eyebrow="Portfolio"
           title="Proyectos destacados"
-          subtitle="Proyectos full stack, mobile e IA aplicada, de mayor a menor alcance."
+          subtitle="Tres proyectos que conectan mi formación en IA, desarrollo web y aplicaciones móviles."
         />
       </Reveal>
 
       <h3 className="mb-6 text-sm font-bold uppercase tracking-widest text-accent">
-        Proyectos desplegados
+        Máster en IA · Bootcamp Full Stack · Proyecto final DAM
       </h3>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {deployed.map((project, index) => (
+        {featured.map((project, index) => (
           <ProjectCard key={project.id} project={project} delay={(index % 3) * 80} />
         ))}
       </div>

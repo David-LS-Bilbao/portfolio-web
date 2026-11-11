@@ -23,7 +23,7 @@ export const projects: Project[] = [
   {
     id: 'verity-news',
     title: 'Verity News',
-    type: 'Proyecto final Máster IA · Full Stack + IA',
+    type: 'Proyecto final del máster de BIG school · Full Stack e IA',
     stack: [
       'TypeScript',
       'React/Next.js',
@@ -38,12 +38,12 @@ export const projects: Project[] = [
     description:
       'Plataforma full stack con IA para analizar credibilidad, sesgo y fiabilidad de noticias mediante LLMs, RAG y búsqueda semántica.',
     highlights: [
-      'Proyecto final del máster de desarrollo de software con IA.',
+      'Proyecto final del Máster de Desarrollo con IA de BIG school.',
       'Arquitectura modular/Clean-Hexagonal.',
-      'Búsqueda semántica y análisis con IA.',
+      'Integración de LLMs, RAG y búsqueda semántica con PostgreSQL y pgvector.',
       'Despliegue online en subdominio propio.',
     ],
-    repoUrl: 'TODO_EDITABLE_REPO_VERITY',
+    repoUrl: 'https://github.com/David-LS-Bilbao/PROYECTO-MASTER-IA',
     demoUrl: 'https://verity.davlos.es/',
     apiUrl: '',
     image: '/projects/verity-news.png',
@@ -52,7 +52,6 @@ export const projects: Project[] = [
     featured: true,
     teamProject: false,
     role: 'Desarrollo full stack, arquitectura e integración de IA aplicada.',
-    layout: 'wide',
   },
   {
     id: 'quotematic-web',
@@ -73,14 +72,14 @@ export const projects: Project[] = [
     image: '/projects/quotematic-web.png',
     status: 'Disponible',
     tags: ['Full Stack'],
-    featured: true,
+    featured: false,
     teamProject: false,
     role: 'Desarrollo full stack, despliegue y mantenimiento.',
   },
   {
     id: 'plangune',
     title: 'PlanGune',
-    type: 'Proyecto final bootcamp · Multidisciplinar · Full Stack',
+    type: 'Proyecto final de The Bridge · Multidisciplinar · Full Stack',
     stack: ['React', 'Node.js', 'Express', 'PostgreSQL', 'APIs REST', 'Docker', 'VPS'],
     description:
       'Plataforma web para descubrir planes familiares en Euskadi, desarrollada como proyecto final del bootcamp en colaboración con equipos de Full Stack, Data Science, Marketing Digital y Ciberseguridad.',
@@ -92,7 +91,7 @@ export const projects: Project[] = [
       'Enfoque mobile-first para familias y negocios.',
       'Despliegue online en subdominio propio.',
     ],
-    repoUrl: 'TODO_EDITABLE_REPO_PLANGUNE',
+    repoUrl: 'https://github.com/David-LS-Bilbao/Plangune-desafio-26',
     demoUrl: 'https://plangune.davlos.es/',
     apiUrl: '',
     image: '/projects/plangune.png',
@@ -101,7 +100,6 @@ export const projects: Project[] = [
     featured: true,
     teamProject: true,
     role: 'Desarrollo Full Stack dentro del equipo técnico, colaborando en frontend, backend, integración y despliegue.',
-    layout: 'wide',
   },
   {
     id: 'nutricoach',
@@ -122,7 +120,7 @@ export const projects: Project[] = [
     image: '/projects/nutricoach.png',
     status: 'Disponible',
     tags: ['Proyecto grupal', 'IA', 'Full Stack'],
-    featured: true,
+    featured: false,
     teamProject: true,
     role: 'Colaborador en desarrollo full stack dentro del equipo.',
   },
@@ -163,12 +161,12 @@ export const projects: Project[] = [
   {
     id: 'pymetask',
     title: 'PymeTask',
-    type: 'Android · Proyecto final DAM',
+    type: 'Proyecto final de DAM · ILERNA · Android',
     stack: ['Kotlin', 'Jetpack Compose', 'Firebase', 'Firestore', 'MVVM'],
     description:
-      'Aplicación Android orientada a pequeños negocios para gestionar contactos, tareas, notas, movimientos, archivos, estadísticas y dashboard.',
+      'Aplicación Android para pequeños negocios, desarrollada como proyecto final de DAM en ILERNA. Permite gestionar contactos, tareas, notas, movimientos y archivos, con estadísticas y dashboard.',
     highlights: [
-      'Proyecto final DAM orientado a pequeños negocios.',
+      'Proyecto final de Desarrollo de Aplicaciones Multiplataforma en ILERNA.',
       'Arquitectura MVVM.',
       'Firebase Auth, Firestore y Storage.',
       'App basada en necesidades reales de pequeños negocios.',
@@ -179,7 +177,7 @@ export const projects: Project[] = [
     image: '/projects/pymetask.png',
     status: 'En desarrollo',
     tags: ['Proyecto final', 'Mobile'],
-    featured: false,
+    featured: true,
     teamProject: false,
   },
   {

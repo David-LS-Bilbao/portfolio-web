@@ -5,6 +5,7 @@ import { isPlaceholder } from '../../lib/placeholder'
 const links = [
   { href: '#inicio', label: 'Inicio' },
   { href: '#sobre-mi', label: 'Sobre mí' },
+  { href: '#competencias-ia', label: 'IA' },
   { href: '#stack', label: 'Stack' },
   { href: '#proyectos', label: 'Proyectos' },
   { href: '#experiencia', label: 'Experiencia' },
@@ -35,7 +36,7 @@ export function Navbar() {
           David López <span className="text-accent">Sotelo</span>
         </a>
 
-        <ul className="hidden items-center gap-7 lg:flex">
+        <ul className="hidden items-center gap-5 xl:gap-7 lg:flex">
           {links.map((link) => (
             <li key={link.href}>
               <a

@@ -46,7 +46,10 @@ export function Hero() {
               title={cvReady ? undefined : 'CV próximamente disponible'}
               className={cvReady ? '' : 'cursor-not-allowed opacity-50'}
             >
-              Descargar CV
+              Descargar CV IA
+            </Button>
+            <Button href={profile.generalCvPath} variant="secondary">
+              CV general
             </Button>
             <Button href={profile.github} variant="secondary" external>
               GitHub

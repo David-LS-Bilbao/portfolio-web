@@ -5,8 +5,12 @@ export interface TechCategory {
 
 export const techStack: TechCategory[] = [
   {
+    category: 'IA aplicada y automatización',
+    items: ['LLMs', 'RAG', 'Embeddings', 'Gemini API', 'n8n'],
+  },
+  {
     category: 'Frontend',
-    items: ['React', 'TypeScript'],
+    items: ['React', 'Next.js', 'TypeScript'],
   },
   {
     category: 'Backend',
@@ -19,9 +23,5 @@ export const techStack: TechCategory[] = [
   {
     category: 'DevOps & Infra',
     items: ['Docker', 'Git/GitHub', 'Linux/WSL', 'VPS'],
-  },
-  {
-    category: 'IA aplicada',
-    items: ['LLMs', 'RAG', 'Gemini API', 'n8n'],
   },
 ]

@@ -12,7 +12,7 @@ export function Experience() {
         <SectionHeading
           eyebrow="Trayectoria"
           title="Experiencia profesional"
-          subtitle="Experiencia previa con valor transferible al desarrollo de software."
+          subtitle="Prácticas de desarrollo y experiencia gestionando un negocio, equipos y procesos."
         />
       </Reveal>
 
@@ -42,7 +42,7 @@ export function Experience() {
 
               <div className="mt-5">
                 <h4 className="mb-2 text-xs font-semibold uppercase tracking-widest text-ink-900/60">
-                  Competencias transferibles
+                  Competencias
                 </h4>
                 <div className="flex flex-wrap gap-2">
                   {item.transferableSkills.map((skill) => (

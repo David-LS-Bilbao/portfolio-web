@@ -22,6 +22,14 @@ export function Education() {
                 {item.grade ? ` · ${item.grade}` : ''}
               </p>
               <p className="mt-3 text-base leading-relaxed text-ink-700">{item.details}</p>
+              {item.certification && (
+                <p className="mt-3 text-sm leading-relaxed text-ink-700">{item.certification}</p>
+              )}
+              {item.ongoing && (
+                <p className="mt-4 border-t border-ink-900/10 pt-4 text-sm font-medium leading-relaxed text-ink-900">
+                  {item.ongoing}
+                </p>
+              )}
             </Card>
           </Reveal>
         ))}
