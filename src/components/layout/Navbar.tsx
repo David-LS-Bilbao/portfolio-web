@@ -1,109 +1,19 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { profile } from '../../data/profile'
-import { isPlaceholder } from '../../lib/placeholder'
-
-const links = [
-  { href: '#inicio', label: 'Inicio' },
-  { href: '#sobre-mi', label: 'Sobre mí' },
-  { href: '#competencias-ia', label: 'IA' },
-  { href: '#stack', label: 'Stack' },
-  { href: '#proyectos', label: 'Proyectos' },
-  { href: '#experiencia', label: 'Experiencia' },
-  { href: '#formacion', label: 'Formación' },
-  { href: '#contacto', label: 'Contacto' },
-]
-
+const links = [{href:'#proyectos',label:'Proyectos'},{href:'#competencias-ia',label:'IA aplicada'},{href:'#sobre-mi',label:'Sobre mí'},{href:'#experiencia',label:'Trayectoria'},{href:'#contacto',label:'Contacto'}]
 export function Navbar() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [isScrolled, setIsScrolled] = useState(false)
-  const cvReady = !isPlaceholder(profile.cvPath)
-
+  const [isOpen,setIsOpen] = useState(false)
+  const [active,setActive] = useState('')
+  const toggle = useRef<HTMLButtonElement>(null)
   useEffect(() => {
-    const onScroll = () => setIsScrolled(window.scrollY > 8)
-    onScroll()
-    window.addEventListener('scroll', onScroll)
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  return (
-    <header
-      className={`sticky top-0 z-50 border-b transition-colors duration-300 ${
-        isScrolled ? 'border-ink-900/10 bg-ink-950/95 backdrop-blur' : 'border-transparent bg-ink-950'
-      }`}
-    >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#inicio" className="text-lg font-bold text-white">
-          David López <span className="text-accent">Sotelo</span>
-        </a>
-
-        <ul className="hidden items-center gap-5 xl:gap-7 lg:flex">
-          {links.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="text-sm font-medium text-white/70 transition-colors hover:text-white"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <a
-          href={cvReady ? profile.cvPath : undefined}
-          aria-disabled={!cvReady}
-          title={cvReady ? undefined : 'CV próximamente disponible'}
-          className={`hidden rounded-full bg-accent px-4 py-2 text-sm font-semibold text-white transition-colors lg:inline-flex ${
-            cvReady ? 'hover:bg-accent-dark' : 'cursor-not-allowed opacity-50'
-          }`}
-        >
-          Descargar CV
-        </a>
-
-        <button
-          type="button"
-          onClick={() => setIsOpen((open) => !open)}
-          className="inline-flex items-center justify-center rounded-md p-2 text-white lg:hidden"
-          aria-label={isOpen ? 'Cerrar menú' : 'Abrir menú'}
-          aria-expanded={isOpen}
-        >
-          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            {isOpen ? (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            )}
-          </svg>
-        </button>
-      </nav>
-
-      {isOpen && (
-        <ul className="flex flex-col gap-1 border-t border-white/10 bg-ink-950 px-6 py-4 lg:hidden">
-          {links.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="block rounded-md px-2 py-2 text-sm font-medium text-white/80 hover:bg-white/5 hover:text-white"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-          <li>
-            <a
-              href={cvReady ? profile.cvPath : undefined}
-              aria-disabled={!cvReady}
-              onClick={() => setIsOpen(false)}
-              className={`mt-2 block rounded-full bg-accent px-4 py-2 text-center text-sm font-semibold text-white ${
-                cvReady ? '' : 'cursor-not-allowed opacity-50'
-              }`}
-            >
-              Descargar CV
-            </a>
-          </li>
-        </ul>
-      )}
-    </header>
-  )
+    const onEscape = (event: KeyboardEvent) => { if(event.key === 'Escape' && isOpen) {setIsOpen(false);toggle.current?.focus()} }
+    window.addEventListener('keydown',onEscape)
+    return () => window.removeEventListener('keydown',onEscape)
+  },[isOpen])
+  useEffect(() => {
+    const observer = new IntersectionObserver(entries => { for(const entry of entries) if(entry.isIntersecting) setActive('#'+entry.target.id) },{rootMargin:'-15% 0px -55% 0px',threshold:0})
+    document.querySelectorAll('main section[id]').forEach(s => observer.observe(s))
+    return () => observer.disconnect()
+  },[])
+  return <header className="site-header"><a className="skip-link" href="#contenido">Saltar al contenido</a><nav aria-label="Navegación principal" className="site-nav mx-auto max-w-6xl"><a href="#inicio" className="brand" aria-label="David López Sotelo, inicio"><span className="brand-symbol" aria-hidden="true">d<span>.</span></span><span>David López Sotelo<span className="brand-subtitle">DESARROLLO & IA APLICADA</span></span></a><ul className="desktop-nav">{links.map(l => <li key={l.href}><a href={l.href} aria-current={active===l.href?'location':undefined}>{l.label}</a></li>)}</ul><a className="nav-cv" href={profile.cvPath}>Ver CV ↗</a><button ref={toggle} type="button" className="menu-toggle" aria-label={isOpen?'Cerrar menú':'Abrir menú'} aria-expanded={isOpen} aria-controls="mobile-navigation" onClick={()=>setIsOpen(!isOpen)}>{isOpen?'Cerrar ×':'Menú +'}</button></nav>{isOpen && <nav id="mobile-navigation" aria-label="Navegación móvil" className="mobile-nav">{links.map(l=><a key={l.href} href={l.href} aria-current={active===l.href?'location':undefined} onClick={()=>setIsOpen(false)}>{l.label} <span aria-hidden="true">↗</span></a>)}<a href={profile.cvPath} onClick={()=>setIsOpen(false)}>Ver CV ↗</a></nav>}</header>
 }

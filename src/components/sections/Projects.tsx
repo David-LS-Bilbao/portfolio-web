@@ -1,145 +1,42 @@
-import type { Project } from '../../data/projects'
-import { projects } from '../../data/projects'
+import { projects, type Project } from '../../data/projects'
 import { hasRealUrl } from '../../lib/placeholder'
-import { Badge } from '../ui/Badge'
-import { Card } from '../ui/Card'
 import { ProjectImage } from '../ui/ProjectImage'
-import { Reveal } from '../ui/Reveal'
 import { Section } from '../ui/Section'
 import { SectionHeading } from '../ui/SectionHeading'
 
-const statusLabels: Record<Project['status'], string> = {
-  Disponible: 'Desplegado',
-  'En desarrollo': 'En desarrollo',
+function Links({ project }: { project: Project }) {
+  return <div className="project-links">
+    {hasRealUrl(project.demoUrl) && <a href={project.demoUrl} target="_blank" rel="noopener noreferrer" aria-label={`Ver demo de ${project.title} (nueva pestaña)`}>Ver demo <span aria-hidden="true">↗</span></a>}
+    {hasRealUrl(project.repoUrl) && <a href={project.repoUrl} target="_blank" rel="noopener noreferrer" aria-label={`Ver código de ${project.title} (nueva pestaña)`}>Explorar código <span aria-hidden="true">↗</span></a>}
+    {hasRealUrl(project.apiUrl) && <a href={project.apiUrl} target="_blank" rel="noopener noreferrer">API REST ↗</a>}
+  </div>
 }
-
-function ProjectCard({ project, delay }: { project: Project; delay: number }) {
-  const repoUrl = hasRealUrl(project.repoUrl) ? project.repoUrl : undefined
-  const demoUrl = hasRealUrl(project.demoUrl) ? project.demoUrl : undefined
-  const apiUrl = hasRealUrl(project.apiUrl) ? project.apiUrl : undefined
-
-  return (
-    <Reveal delay={delay} className={project.layout === 'wide' ? 'lg:col-span-2' : 'lg:col-span-1'}>
-      <Card
-        padded={false}
-        className={`flex h-full flex-col overflow-hidden ${
-          project.featured ? 'border-accent/40 ring-1 ring-accent/10' : ''
-        }`}
-      >
-        <div className="aspect-video w-full overflow-hidden bg-ink-900">
-          <ProjectImage src={project.image} alt={`Captura de pantalla de ${project.title}`} />
-        </div>
-
-        <div className="flex flex-1 flex-col p-6">
-          <div className="flex flex-wrap items-center gap-2">
-            <Badge
-              label={statusLabels[project.status]}
-              variant={project.status === 'Disponible' ? 'accent' : 'default'}
-            />
-            {project.tags.map((tag) => (
-              <Badge key={tag} label={tag} />
-            ))}
-          </div>
-
-          <h3 className="mt-3 text-xl font-bold text-ink-900">{project.title}</h3>
-          <p className="text-xs font-semibold uppercase tracking-widest text-accent">{project.type}</p>
-          <p className="mt-3 text-base leading-relaxed text-ink-700">{project.description}</p>
-
-          <ul className="mt-4 space-y-1.5 text-base text-ink-700">
-            {project.highlights.map((highlight) => (
-              <li key={highlight} className="flex gap-2">
-                <span className="text-accent" aria-hidden="true">
-                  ▸
-                </span>
-                <span>{highlight}</span>
-              </li>
-            ))}
-          </ul>
-
-          {project.teamProject && project.role && (
-            <p className="mt-4 text-sm italic text-ink-700/80">Mi rol: {project.role}</p>
-          )}
-
-          <div className="mt-4 flex flex-wrap gap-2">
-            {project.stack.map((tech) => (
-              <Badge key={tech} label={tech} />
-            ))}
-          </div>
-
-          {(repoUrl || demoUrl || apiUrl) && (
-            <div className="mt-auto flex flex-wrap items-center gap-4 pt-6 text-sm font-semibold">
-              {demoUrl && (
-                <a
-                  href={demoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Demo de ${project.title} (se abre en una pestaña nueva)`}
-                  className="text-ink-900 underline-offset-4 hover:text-accent hover:underline"
-                >
-                  Ver demo →
-                </a>
-              )}
-              {repoUrl && (
-                <a
-                  href={repoUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Repositorio de ${project.title} (se abre en una pestaña nueva)`}
-                  className="text-ink-900 underline-offset-4 hover:text-accent hover:underline"
-                >
-                  Ver código →
-                </a>
-              )}
-              {apiUrl && (
-                <a
-                  href={apiUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`API de ${project.title} (se abre en una pestaña nueva)`}
-                  className="text-ink-900 underline-offset-4 hover:text-accent hover:underline"
-                >
-                  API REST →
-                </a>
-              )}
-            </div>
-          )}
-        </div>
-      </Card>
-    </Reveal>
-  )
+function Tags({ project }: { project: Project }) {
+  return <ul className="tech-tags" aria-label="Tecnologías">{project.stack.slice(0, 5).map(t => <li key={t}>{t}</li>)}</ul>
 }
-
 export function Projects() {
-  const featured = projects.filter((project) => project.featured)
-  const others = projects.filter((project) => !project.featured)
-
+  const verity = projects.find(p => p.id === 'verity-news')!
+  const plan = projects.find(p => p.id === 'plangune')!
+  const pyme = projects.find(p => p.id === 'pymetask')!
   return (
-    <Section id="proyectos" tone="light">
-      <Reveal>
-        <SectionHeading
-          eyebrow="Portfolio"
-          title="Proyectos destacados"
-          subtitle="Tres proyectos que conectan mi formación en IA, desarrollo web y aplicaciones móviles."
-        />
-      </Reveal>
-
-      <h3 className="mb-6 text-sm font-bold uppercase tracking-widest text-accent">
-        Máster en IA · Bootcamp Full Stack · Proyecto final DAM
-      </h3>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {featured.map((project, index) => (
-          <ProjectCard key={project.id} project={project} delay={(index % 3) * 80} />
-        ))}
+    <Section id="proyectos" className="projects-section">
+      <div className="section-topline"><SectionHeading eyebrow="01 / TRABAJO SELECCIONADO" title="Del problema al producto." subtitle="Tres proyectos. Tres formas de conectar desarrollo, personas e inteligencia artificial." /><span className="section-note">WEB · IA · ANDROID</span></div>
+      <article className="featured-project">
+        <div className="featured-copy">
+          <p className="eyebrow text-accent">01 — INTELIGENCIA ARTIFICIAL</p><h3>Verity News<span className="project-dot">.</span></h3>
+          <p className="project-lead">Más contexto para entender las noticias.</p>
+          <p className="project-description">Una plataforma para analizar credibilidad, sesgo y fiabilidad con LLMs, RAG y búsqueda semántica.</p>
+          <dl className="case-facts"><div><dt>EL RETO</dt><dd>Conectar el análisis de noticias con información relevante.</dd></div><div><dt>MI APORTACIÓN</dt><dd>Desarrollo full stack, arquitectura modular e integración de IA.</dd></div></dl>
+          <Tags project={verity} /><Links project={verity} />
+          <p className="project-context">Proyecto final · Máster de BIG school</p>
+        </div>
+        <div className="featured-visual"><div className="browser-frame"><div className="browser-chrome" aria-hidden="true"><i /><i /><i /><span>verity.davlos.es</span></div><ProjectImage src={verity.image} alt="Interfaz de análisis de noticias de Verity News" /></div><div className="rag-flow" aria-label="Tecnologías aplicadas en Verity News"><span>Información</span><b aria-hidden="true">→</b><span>RAG + LLMs</span><b aria-hidden="true">→</b><span>Análisis</span></div><p className="visual-caption">IA aplicada, desde los datos hasta la interfaz.</p></div>
+      </article>
+      <div className="secondary-projects">
+        <article className="secondary-project plan-project"><div className="project-preview"><ProjectImage src={plan.image} alt="Página de planes familiares de PlanGune" /></div><div className="secondary-copy"><p className="eyebrow text-accent">02 — DESARROLLO WEB EN EQUIPO</p><h3>PlanGune<span className="project-dot">.</span></h3><p className="project-description">Descubrir planes en familia, cerca de casa. Una plataforma para familias y negocios de Euskadi.</p><p className="project-contribution"><strong>Mi aportación</strong> · Frontend, backend, integración y despliegue dentro de un equipo multidisciplinar.</p><Tags project={plan} /><Links project={plan} /><p className="project-context">Proyecto final · The Bridge</p></div></article>
+        <article className="secondary-project mobile-project"><div className="mobile-preview"><div className="mobile-preview-copy"><p className="eyebrow">ANDROID / KOTLIN</p><p>El día a día<br />de un negocio.<br /><strong>En tu bolsillo.</strong></p></div><div className="phone-frame"><ProjectImage src={pyme.image} alt="Pantalla de PymeTask con agenda, movimientos, archivos y notas" /></div></div><div className="secondary-copy"><p className="eyebrow text-accent">03 — DESARROLLO MOBILE</p><h3>PymeTask<span className="project-dot">.</span></h3><p className="project-description">Contactos, tareas, notas y movimientos en una aplicación Android para pequeños negocios.</p><p className="project-contribution"><strong>La solución</strong> · Arquitectura MVVM, Jetpack Compose y servicios Firebase. Proyecto en desarrollo.</p><Tags project={pyme} /><Links project={pyme} /><p className="project-context">Proyecto final · DAM en ILERNA</p></div></article>
       </div>
-
-      <h3 className="mb-6 mt-16 border-t border-ink-900/10 pt-12 text-sm font-semibold uppercase tracking-widest text-ink-900/50">
-        Otros proyectos
-      </h3>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {others.map((project, index) => (
-          <ProjectCard key={project.id} project={project} delay={(index % 3) * 80} />
-        ))}
-      </div>
+      <details className="project-archive"><summary>Más proyectos y exploraciones <span>{projects.filter(p => !p.featured).length} proyectos <span aria-hidden="true">+</span></span></summary><div className="archive-grid">{projects.filter(p => !p.featured).map(p => <article className="archive-card" key={p.id}><div className="archive-image"><ProjectImage src={p.image} alt={`Captura de ${p.title}`} /></div><p className="eyebrow text-accent">{p.status === 'Disponible' ? 'DESPLEGADO' : 'EN DESARROLLO'}</p><h3>{p.title}</h3><p>{p.description}</p><details className="project-detail"><summary>Detalles del proyecto</summary><ul>{p.highlights.map(h => <li key={h}>{h}</li>)}</ul>{p.role && <p><strong>Mi rol:</strong> {p.role}</p>}</details><Tags project={p} /><Links project={p} /></article>)}</div></details>
     </Section>
   )
 }

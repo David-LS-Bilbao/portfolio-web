@@ -14,9 +14,9 @@ export function SectionHeading({
   center = false,
 }: SectionHeadingProps) {
   return (
-    <div className={`mb-10 max-w-2xl ${center ? 'mx-auto' : ''}`}>
+    <div className={`mb-10 max-w-2xl ${center ? 'mx-auto text-center' : ''}`}>
       <span className="text-sm font-semibold uppercase tracking-widest text-accent">{eyebrow}</span>
-      <h2 className={`mt-2 text-3xl font-bold sm:text-4xl ${light ? 'text-white' : 'text-ink-900'}`}>
+      <h2 className={`section-title mt-2 text-3xl font-bold sm:text-4xl ${light ? 'text-white' : 'text-ink-900'}`}>
         {title}
       </h2>
       {subtitle && (

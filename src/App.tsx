@@ -13,12 +13,12 @@ function App() {
   return (
     <>
       <Navbar />
-      <main>
+      <main id="contenido" tabIndex={-1}>
         <Hero />
-        <About />
-        <AICompetencies />
-        <Stack />
         <Projects />
+        <AICompetencies />
+        <About />
+        <Stack />
         <Experience />
         <Education />
         <Contact />
